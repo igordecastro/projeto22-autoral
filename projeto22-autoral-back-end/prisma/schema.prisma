@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model public_appointments {
+  id                   Int                  @id(map: "appointments_pk") @default(autoincrement())
+  pacient_id           Int
+  professional_id      Int
+  date                 DateTime             @db.Date
+  public_pacients      public_pacients      @relation(fields: [pacient_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_fk0")
+  public_professionals public_professionals @relation(fields: [professional_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_fk1")
+
+  @@map("public.appointments")
+}
+
+model public_pacients {
+  id                  Int                   @id(map: "pacients_pk") @default(autoincrement())
+  phone_number        Int
+  name                String                @db.VarChar
+  email               String                @unique @db.VarChar
+  cpf                 Int                   @unique
+  birth_day           DateTime              @db.Date
+  public_appointments public_appointments[]
+
+  @@map("public.pacients")
+}
+
+model public_professionals {
+  id                  Int                   @id(map: "professionals_pk") @default(autoincrement())
+  name                String                @db.VarChar
+  phone_number        Int
+  specialty           String                @db.VarChar
+  public_appointments public_appointments[]
+
+  @@map("public.professionals")
+}
