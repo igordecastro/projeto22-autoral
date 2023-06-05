@@ -7,6 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model public_session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  User      public_pacients     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model public_appointments {
   id                   Int                  @id(map: "appointments_pk") @default(autoincrement())
   pacient_id           Int
@@ -26,7 +35,8 @@ model public_pacients {
   cpf                 Int                   @unique
   birth_day           DateTime              @db.Date
   public_appointments public_appointments[]
-
+  public_session      public_session[]
+  
   @@map("public.pacients")
 }
 
