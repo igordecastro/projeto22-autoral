@@ -39,9 +39,8 @@ export function handleApplicationErrors(err: ApplicationError | Error, _req: Req
     });
   }
 
-  res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
+  return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
     error: 'InternalServerError',
     message: 'Internal Server Error',
   });
 }
-/*    */
