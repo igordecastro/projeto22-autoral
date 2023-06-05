@@ -29,11 +29,14 @@ model public_appointments {
 
 model public_pacients {
   id                  Int                   @id(map: "pacients_pk") @default(autoincrement())
-  phone_number        Int
-  name                String                @db.VarChar
+  phone_number        Int?
+  name                String?                @db.VarChar
   email               String                @unique @db.VarChar
-  cpf                 Int                   @unique
-  birth_day           DateTime              @db.Date
+  password            String                @db.VarChar
+  address             String?                @db.VarChar
+  health_ensurance    String?               @db.VarChar
+  cpf                 Int?                   @unique
+  birth_day           DateTime?              @db.Date
   public_appointments public_appointments[]
   public_session      public_session[]
   
