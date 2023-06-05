@@ -8,12 +8,6 @@ export default function LoginForm() {
   const [disable, setDisable] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token: string | null = localStorage.getItem('token');
-    }
-  }, []);
-
   function login(event: { preventDefault: () => void }) {
     event.preventDefault();
     setDisable(true);
@@ -29,6 +23,13 @@ export default function LoginForm() {
         setDisable(false);
       });
   }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token: string | null = localStorage.getItem('token');
+    }
+  }, []);
+
   return (
     <div
       className={
