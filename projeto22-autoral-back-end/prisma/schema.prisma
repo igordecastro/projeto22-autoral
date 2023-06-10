@@ -10,7 +10,7 @@ datasource db {
 model public_session {
   id        Int      @id @default(autoincrement())
   userId    Int
-  User      public_pacients     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User      public_patients     @relation(fields: [userId], references: [id], onDelete: Cascade)
   token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -18,17 +18,17 @@ model public_session {
 
 model public_appointments {
   id                   Int                  @id(map: "appointments_pk") @default(autoincrement())
-  pacient_id           Int
+  patient_id           Int
   professional_id      Int
   date                 DateTime             @db.Date
-  public_pacients      public_pacients      @relation(fields: [pacient_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_fk0")
+  public_patients      public_patients      @relation(fields: [patient_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_fk0")
   public_professionals public_professionals @relation(fields: [professional_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_fk1")
 
   @@map("public.appointments")
 }
 
-model public_pacients {
-  id                  Int                   @id(map: "pacients_pk") @default(autoincrement())
+model public_patients {
+  id                  Int                   @id(map: "patients_pk") @default(autoincrement())
   phone_number        Int?
   name                String?                @db.VarChar
   email               String                @unique @db.VarChar
@@ -40,7 +40,7 @@ model public_pacients {
   public_appointments public_appointments[]
   public_session      public_session[]
   
-  @@map("public.pacients")
+  @@map("public.patients")
 }
 
 model public_professionals {

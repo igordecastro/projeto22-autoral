@@ -1,10 +1,10 @@
 import { ApplicationError } from '@/protocols';
 
-import { public_pacients } from '@prisma/client';
+import { public_patients } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { exclude } from '@/utils/prisma-utils';
-import pacientRepository from '@/repositories/pacient-repository';
+import patientRepository from '@/repositories/patient-repository';
 import sessionRepository from '@/repositories/session-repository';
 
 async function signIn(params: SignInParams): Promise<SignInResult> {
@@ -23,7 +23,7 @@ async function signIn(params: SignInParams): Promise<SignInResult> {
 }
 
 async function getUserOrFail(email: string): Promise<GetUserOrFailResult> {
-  const user = await pacientRepository.findByEmail(email, { id: true, email: true, password: true });
+  const user = await patientRepository.findByEmail(email, { id: true, email: true, password: true });
   if (!user) throw invalidCredentialsError();
 
   return user;
@@ -44,14 +44,14 @@ async function validatePasswordOrFail(password: string, userPassword: string) {
   if (!isPasswordValid) throw invalidCredentialsError();
 }
 
-export type SignInParams = Pick<public_pacients, 'email' | 'password'>;
+export type SignInParams = Pick<public_patients, 'email' | 'password'>;
 
 type SignInResult = {
-  user: Pick<public_pacients, 'id' | 'email'>;
+  user: Pick<public_patients, 'id' | 'email'>;
   token: string;
 };
 
-type GetUserOrFailResult = Pick<public_pacients, 'id' | 'email' | 'password'>;
+type GetUserOrFailResult = Pick<public_patients, 'id' | 'email' | 'password'>;
 
 const authenticationService = {
   signIn,

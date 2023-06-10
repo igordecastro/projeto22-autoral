@@ -1,29 +1,29 @@
-import { public_pacients } from '@prisma/client';
+import { public_patients } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import pacientRepository from '@/repositories/pacient-repository';
+import patientRepository from '@/repositories/patient-repository';
 import { ApplicationError } from '@/protocols';
 
-export async function createPacient({ email, password }: CreatePacientParams): Promise<public_pacients> {
+export async function createpatient({ email, password }: CreatepatientParams): Promise<public_patients> {
   await validateUniqueEmailOrFail(email);
 
   const hashedPassword = await bcrypt.hash(password, 12);
-  return pacientRepository.create({
+  return patientRepository.create({
     email,
     password: hashedPassword,
   });
 }
 
 async function validateUniqueEmailOrFail(email: string) {
-  const userWithSameEmail = await pacientRepository.findByEmail(email);
+  const userWithSameEmail = await patientRepository.findByEmail(email);
   if (userWithSameEmail) {
     throw duplicatedEmailError();
   }
 }
 
-export type CreatePacientParams = Pick<public_pacients, 'email' | 'password'>;
+export type CreatepatientParams = Pick<public_patients, 'email' | 'password'>;
 
-const pacientService = {
-  createPacient,
+const patientService = {
+  createpatient,
 };
 
 export function duplicatedEmailError(): ApplicationError {
@@ -33,4 +33,4 @@ export function duplicatedEmailError(): ApplicationError {
   };
 }
 
-export default pacientService;
+export default patientService;

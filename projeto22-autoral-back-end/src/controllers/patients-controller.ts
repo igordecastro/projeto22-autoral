@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import pacientService from '@/services/pacients-service';
+import patientService from '@/services/patients-service';
 
-export async function pacientsPost(req: Request, res: Response) {
+export async function patientsPost(req: Request, res: Response) {
   const { email, password } = req.body;
 
   try {
-    const user = await pacientService.createPacient({ email, password });
+    const user = await patientService.createpatient({ email, password });
     return res.status(httpStatus.CREATED).json({
       id: user.id,
       email: user.email,

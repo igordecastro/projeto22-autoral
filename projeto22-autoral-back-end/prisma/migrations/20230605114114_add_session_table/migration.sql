@@ -12,7 +12,7 @@ CREATE TABLE "public_session" (
 -- CreateTable
 CREATE TABLE "public.appointments" (
     "id" SERIAL NOT NULL,
-    "pacient_id" INTEGER NOT NULL,
+    "patient_id" INTEGER NOT NULL,
     "professional_id" INTEGER NOT NULL,
     "date" DATE NOT NULL,
 
@@ -20,7 +20,7 @@ CREATE TABLE "public.appointments" (
 );
 
 -- CreateTable
-CREATE TABLE "public.pacients" (
+CREATE TABLE "public.patients" (
     "id" SERIAL NOT NULL,
     "phone_number" INTEGER NOT NULL,
     "name" VARCHAR NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE "public.pacients" (
     "cpf" INTEGER NOT NULL,
     "birth_day" DATE NOT NULL,
 
-    CONSTRAINT "pacients_pk" PRIMARY KEY ("id")
+    CONSTRAINT "patients_pk" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -42,16 +42,16 @@ CREATE TABLE "public.professionals" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "public.pacients_email_key" ON "public.pacients"("email");
+CREATE UNIQUE INDEX "public.patients_email_key" ON "public.patients"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "public.pacients_cpf_key" ON "public.pacients"("cpf");
+CREATE UNIQUE INDEX "public.patients_cpf_key" ON "public.patients"("cpf");
 
 -- AddForeignKey
-ALTER TABLE "public_session" ADD CONSTRAINT "public_session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public.pacients"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public_session" ADD CONSTRAINT "public_session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public.patients"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public.appointments" ADD CONSTRAINT "appointments_fk0" FOREIGN KEY ("pacient_id") REFERENCES "public.pacients"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public.appointments" ADD CONSTRAINT "appointments_fk0" FOREIGN KEY ("patient_id") REFERENCES "public.patients"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "public.appointments" ADD CONSTRAINT "appointments_fk1" FOREIGN KEY ("professional_id") REFERENCES "public.professionals"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

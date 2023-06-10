@@ -1,5 +1,5 @@
 -- AlterTable
-ALTER TABLE "public.pacients" ALTER COLUMN "phone_number" DROP NOT NULL,
+ALTER TABLE "public.patients" ALTER COLUMN "phone_number" DROP NOT NULL,
 ALTER COLUMN "name" DROP NOT NULL,
 ALTER COLUMN "cpf" DROP NOT NULL,
 ALTER COLUMN "birth_day" DROP NOT NULL,
