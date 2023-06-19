@@ -1,25 +1,40 @@
-import { Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import httpStatus from 'http-status';
 import appointmentService from '@/services/appointment-service';
+import { AuthenticatedRequest } from "@/middlewares";
 
-export async function createAppointment(req: Request, res: Response) {
-  const { date, schedule } = req.body;
+export async function createAppointment(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const { date, professional_id } = req.body;
+  const { userId } = req;
 
   try {
-  } catch (err) {}
+    await appointmentService.createAppointment(date, +professional_id, userId);
+    return res.status(httpStatus.CREATED).send({ message: "Created!"})
+  } catch (error) {
+    next(error);
+  }
 }
 
-export async function getAppointments(req: Request, res: Response) {
+export async function getAppointments(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const { userId } = req;
   try {
-  } catch (err) {}
+    const appointments = appointmentService.getUserAppointments(userId);
+    return res.status(httpStatus.OK).send(appointments);
+  } catch (error) {
+    next(error);
+  }
 }
 
-export async function updateAppointment(req: Request, res: Response) {
+export async function updateAppointment(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   try {
-  } catch (err) {}
+  } catch (error) {
+    next(error);
+  }
 }
 
-export async function deleteAppointment(req: Request, res: Response) {
+export async function deleteAppointment(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   try {
-  } catch (err) {}
+  } catch (error) {
+    next(error);
+  }
 }

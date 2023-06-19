@@ -1,12 +1,14 @@
 import { Router } from 'express';
 import { createAppointment, getAppointments, deleteAppointment, updateAppointment } from '@/controllers/appointments-controller';
+import { authenticateToken } from '@/middlewares';
 
 const appointmentsRouter = Router();
 
 appointmentsRouter
-  .post('', createAppointment)
-  .get('', getAppointments)
-  .delete('', deleteAppointment)
-  .put('', updateAppointment);
+  .all('/*', authenticateToken)
+  .post('/', createAppointment)
+  .get('/', getAppointments)
+  .delete('/:id', deleteAppointment)
+  .put('/:id', updateAppointment);
 
 export { appointmentsRouter };

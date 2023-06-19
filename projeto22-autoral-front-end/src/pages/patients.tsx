@@ -1,23 +1,21 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from 'next/router';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(" ");
+  const [password, setPassword] = useState(" ");
   const [disable, setDisable] = useState(false);
   const router = useRouter();
-
-  function login(event: { preventDefault: () => void }) {
+  
+  function createPatient(event: { preventDefault: () => void }) {
     event.preventDefault();
     setDisable(true);
-
     axios
-      .post(`http://localhost:4000/sign-in`, { email, password })
-      .then((ans) => {
-        console.log(ans.data.token)
-        localStorage.setItem("token", JSON.stringify(ans.data.token));
-        router.replace("/");
+      .post(`http://localhost:4000/patients`, { email, password })
+      .then(() => {
+        window.alert('usuário criado com sucesso!')
+        router.replace('/sign-in');
       })
       .catch((ans) => {
         console.log(ans);
@@ -25,19 +23,13 @@ export default function LoginForm() {
       });
   }
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token: string | null = localStorage.getItem('token');
-    }
-  }, []);
-
   return (
     <div
       className={
         "flex min-h-screen flex-col items-center justify-center h-full "
       }
     >
-      <form onSubmit={login} className="flex flex-col border-2 border-black p-3">
+      <form onSubmit={createPatient} className="flex flex-col border-2 border-black p-3">
         <div className="mb-4">
           <label htmlFor="email">Email:</label>
           <input
@@ -60,11 +52,11 @@ export default function LoginForm() {
         />
         </div>
         <button type="submit" disabled={disable} className="flex justify-center">
-          Log In
+          Signup
         </button>
-        <span onClick={() => router.replace("/")}>
+        <span onClick={() => router.replace("/sign-in")}>
           <br />
-          First time? Create an account!
+          Already registered? Sign-in!
         </span>
       </form>
     </div>

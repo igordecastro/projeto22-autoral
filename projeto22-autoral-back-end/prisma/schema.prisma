@@ -29,7 +29,7 @@ model public_appointments {
 
 model public_patients {
   id                  Int                   @id(map: "patients_pk") @default(autoincrement())
-  phone_number        Int?
+  phone_number        String?
   name                String?                @db.VarChar
   email               String                @unique @db.VarChar
   password            String                @db.VarChar
@@ -46,7 +46,7 @@ model public_patients {
 model public_professionals {
   id                  Int                   @id(map: "professionals_pk") @default(autoincrement())
   name                String                @db.VarChar
-  phone_number        Int
+  phone_number        String
   specialty           String                @db.VarChar
   public_appointments public_appointments[]
 

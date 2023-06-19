@@ -6,6 +6,6 @@ import { patientsPost } from '@/controllers/patients-controller';
 
 const patientsRouter = Router();
 
-patientsRouter.post('', validateBody(createUserSchema), patientsPost);
+patientsRouter.post('/', validateBody(createUserSchema), patientsPost);
 
 export { patientsRouter };
