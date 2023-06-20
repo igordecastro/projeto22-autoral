@@ -62,7 +62,7 @@ export default function LoginForm() {
         <button type="submit" disabled={disable} className="flex justify-center">
           Log In
         </button>
-        <span onClick={() => router.replace("/")}>
+        <span onClick={() => router.replace("/patients")}>
           <br />
           First time? Create an account!
         </span>
