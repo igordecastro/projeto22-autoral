@@ -25,3 +25,8 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.h-80vh {
+  height: 80vh;
+  width: 50%;
+}
