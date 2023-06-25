@@ -8,8 +8,8 @@ import { loadEnv, connectDb, disconnectDB } from '@/config';
 loadEnv();
 
 import { handleApplicationErrors } from '@/middlewares';
-import { authenticationRouter, patientsRouter, appointmentsRouter, professionalsRouter } from "./routers";
-import httpStatus from "http-status";
+import { authenticationRouter, patientsRouter, appointmentsRouter, professionalsRouter } from './routers';
+import httpStatus from 'http-status';
 
 const app = express();
 app

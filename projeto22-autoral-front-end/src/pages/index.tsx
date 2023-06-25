@@ -55,8 +55,10 @@ function About(p: { specialty: string; name: string; phone_number: number }) {
       <div className="p-2">
         <h3 className="text-left">{p.name}</h3>
         <div className="bg-current separator h-0.5 w-full" />
+
         <h4 className="text-left">{p.specialty}</h4>
         <div className="bg-current separator h-0.5 w-full" />
+        
         <div className="flex overflow-scroll">
         <p>Próximos horários disponíveis: </p>
         </div>

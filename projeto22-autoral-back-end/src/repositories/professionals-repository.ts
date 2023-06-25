@@ -1,4 +1,4 @@
-import { prisma } from "@/config";
+import { prisma } from '@/config';
 
 function getProfessionals(){
   return prisma.public_professionals.findMany();

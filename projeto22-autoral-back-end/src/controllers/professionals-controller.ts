@@ -1,6 +1,6 @@
 import professionalsService from '@/services/professionals-service';
-import { NextFunction, Request, Response } from "express";
-import httpStatus from "http-status";
+import { NextFunction, Request, Response } from 'express';
+import httpStatus from 'http-status';
 
 export async function getProfessionals(req: Request, res: Response, next: NextFunction) {
   try {

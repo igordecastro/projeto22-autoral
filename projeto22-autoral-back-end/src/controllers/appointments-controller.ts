@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import httpStatus from 'http-status';
 import appointmentService from '@/services/appointment-service';
-import { AuthenticatedRequest } from "@/middlewares";
+import { AuthenticatedRequest } from '@/middlewares';
 
 export async function createAppointment(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const { date, professional_id } = req.body;
@@ -9,7 +9,7 @@ export async function createAppointment(req: AuthenticatedRequest, res: Response
 
   try {
     await appointmentService.createAppointment(date, +professional_id, userId);
-    return res.status(httpStatus.CREATED).send({ message: "Created!"})
+    return res.status(httpStatus.CREATED).send({ message: 'Created!'})
   } catch (error) {
     next(error);
   }

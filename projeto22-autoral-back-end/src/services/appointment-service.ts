@@ -1,4 +1,4 @@
-import { badRequestError, conflictError } from "@/errors";
+import { badRequestError, conflictError } from '@/errors';
 import appointmentsRepository from '@/repositories/appointments-repository';
 
 async function createAppointment(date: string, professional_id: number, userId: number) {
