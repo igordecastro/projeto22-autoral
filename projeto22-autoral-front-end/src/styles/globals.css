@@ -30,3 +30,7 @@ body {
   height: 80vh;
   width: 50%;
 }
+
+.separator {
+  color: #F2F3F5;
+}

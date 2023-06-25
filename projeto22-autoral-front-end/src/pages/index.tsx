@@ -51,12 +51,16 @@ export default function Home() {
 
 function About(p: { specialty: string; name: string; phone_number: number }) {
   return (
-    <div className="ml-12">
-      <div className="border-2 rounded-lg inline-block p-2 w-auto">
+    <div className="mx-12 rounded border-2 inline-block">
+      <div className="p-2">
         <h3 className="text-left">{p.name}</h3>
+        <div className="bg-current separator h-0.5 w-full" />
         <h4 className="text-left">{p.specialty}</h4>
+        <div className="bg-current separator h-0.5 w-full" />
+        <div className="flex overflow-scroll">
+        <p>Próximos horários disponíveis: </p>
+        </div>
       </div>
     </div>
   );
 }
-
