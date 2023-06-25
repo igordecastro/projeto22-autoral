@@ -8,12 +8,12 @@ datasource db {
 }
 
 model public_session {
-  id        Int      @id @default(autoincrement())
+  id        Int             @id @default(autoincrement())
   userId    Int
-  User      public_patients     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User      public_patients @relation(fields: [userId], references: [id], onDelete: Cascade)
   token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
 }
 
 model public_appointments {
@@ -30,16 +30,16 @@ model public_appointments {
 model public_patients {
   id                  Int                   @id(map: "patients_pk") @default(autoincrement())
   phone_number        String?
-  name                String?                @db.VarChar
+  name                String?               @db.VarChar
   email               String                @unique @db.VarChar
   password            String                @db.VarChar
-  address             String?                @db.VarChar
+  address             String?               @db.VarChar
   health_ensurance    String?               @db.VarChar
-  cpf                 Int?                   @unique
-  birth_day           DateTime?              @db.Date
+  cpf                 Int?                  @unique
+  birth_day           DateTime?             @db.Date
   public_appointments public_appointments[]
   public_session      public_session[]
-  
+
   @@map("public.patients")
 }
 
@@ -49,6 +49,17 @@ model public_professionals {
   phone_number        String
   specialty           String                @db.VarChar
   public_appointments public_appointments[]
+  public_schedule     public_schedule[]
 
   @@map("public.professionals")
+}
+
+model public_schedule {
+  id              Int                  @id @default(autoincrement())
+  date            DateTime
+  available       Boolean
+  professional_id Int
+  professional    public_professionals @relation(fields: [professional_id], references: [id])
+
+  @@map("public_schedule")
 }
