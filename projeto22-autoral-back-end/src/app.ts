@@ -8,7 +8,7 @@ import { loadEnv, connectDb, disconnectDB } from '@/config';
 loadEnv();
 
 import { handleApplicationErrors } from '@/middlewares';
-import { authenticationRouter, patientsRouter, appointmentsRouter, professionalsRouter } from './routers';
+import { authenticationRouter, patientsRouter, appointmentsRouter, professionalsRouter, scheduleRouter } from './routers';
 import httpStatus from 'http-status';
 
 const app = express();
@@ -19,6 +19,7 @@ app
   .use('/patients',patientsRouter)
   .use('/appointments', appointmentsRouter)
   .use('/professionals', professionalsRouter)
+  .use('/schedules', scheduleRouter)
   .get('*', (req, res) => {
     res.status(httpStatus.NOT_FOUND).send('Endpoint not found!');
   })

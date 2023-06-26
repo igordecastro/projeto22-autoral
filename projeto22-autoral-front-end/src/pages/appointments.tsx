@@ -25,6 +25,9 @@ export default function Appointments() {
         console.log(ans);
         setDisable(false);
       });
+
+      axios
+      .put('http://localhost:4000/schedules')
   }
 
   return (

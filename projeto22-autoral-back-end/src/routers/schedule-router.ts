@@ -1,8 +1,8 @@
 import express from 'express';
 import { scheduleController } from '../controllers/schedule-controller';
 
-const router = express.Router();
+const scheduleRouter = express.Router();
 
-router.put('/schedule/:id', scheduleController);
+scheduleRouter.put('/schedule/:id', scheduleController);
 
-export default router;
+export { scheduleRouter };
