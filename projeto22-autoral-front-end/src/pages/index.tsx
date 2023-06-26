@@ -8,7 +8,13 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const router: NextRouter = useRouter();
   const [professionals, setProfessionals] = useState<
-    { specialty: string; name: string; phone_number: number }[]
+    {
+      id: number;
+      specialty: string;
+      name: string;
+      phone_number: number;
+      public_schedule: { date: string }[];
+    }[]
   >([]);
 
   useEffect(() => {
@@ -40,7 +46,7 @@ export default function Home() {
       <div className="flex flex-col m-auto bg-white rounded shadow-md justify-around h-80vh">
         {professionals.length > 0 &&
           professionals.map((p, index) =>
-            p.name && p.specialty && p.phone_number ? (
+            p.name && p.specialty && p.phone_number && p.public_schedule ? (
               <About key={index} {...p} />
             ) : null
           )}
@@ -49,7 +55,15 @@ export default function Home() {
   );
 }
 
-function About(p: { specialty: string; name: string; phone_number: number }) {
+function About(p: {
+  id: number;
+  specialty: string;
+  name: string;
+  phone_number: number;
+  public_schedule: { date: string }[];
+}) {
+  const router: NextRouter = useRouter();
+
   return (
     <div className="mx-12 rounded border-2 inline-block">
       <div className="p-2">
@@ -58,11 +72,43 @@ function About(p: { specialty: string; name: string; phone_number: number }) {
 
         <h4 className="text-left">{p.specialty}</h4>
         <div className="bg-current separator h-0.5 w-full" />
-        
+
         <div className="flex overflow-scroll">
-        <p>Próximos horários disponíveis: </p>
+          <p>Próximos horários disponíveis: </p>
+          {p.public_schedule.map((s) => {
+            const date = new Date(s.date);
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
+
+            return (
+              <button
+                onClick={() =>
+                  router.push({
+                    pathname: "/appointments",
+                    query: {
+                      id: p.id,
+                      date: generateTimestamp(hours, minutes, seconds),
+                    },
+                  })
+                }
+                className="m-auto"
+              >
+                {s.date.slice(11, 16)}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
   );
+}
+
+function generateTimestamp(hour: number, minute: number, second: number) {
+  const date: Date = new Date();
+  date.setHours(hour, minute, second);
+
+  const timestamp: string = date.toISOString();
+
+  return timestamp;
 }
