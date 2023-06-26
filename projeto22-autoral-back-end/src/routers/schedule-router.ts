@@ -3,6 +3,6 @@ import { scheduleController } from '../controllers/schedule-controller';
 
 const scheduleRouter = express.Router();
 
-scheduleRouter.put('/schedule/:id', scheduleController);
+scheduleRouter.put('/:id', scheduleController);
 
 export { scheduleRouter };
