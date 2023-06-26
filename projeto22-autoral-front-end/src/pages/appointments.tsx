@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 export default function Appointments() {
   const router = useRouter();
   const { id, date: dateFromQuery } = router.query;
+  const { scheduleId } = router.query;
   const [date, setDate] = useState(dateFromQuery);
   const [professional_id, setProfessional_id] = useState(id);
   const [disable, setDisable] = useState(false);
@@ -16,6 +17,15 @@ export default function Appointments() {
     const token: string | undefined = localStorage.getItem('token')?.replaceAll('"','');
     
     axios
+      .put(`http://localhost:4000/schedules/${scheduleId}`, { }, {headers: {"Authorization":`Bearer ${token}`}})
+      .then(() => {
+        console.log("Disponibilidade alterada")
+      })
+      .catch((ans) => {
+        console.log(ans);
+      });
+
+    axios
       .post(`http://localhost:4000/appointments`, { date, professional_id }, {headers: {"Authorization":`Bearer ${token}`}})
       .then(() => {
         alert("Agendamento realizado!")
@@ -25,9 +35,6 @@ export default function Appointments() {
         console.log(ans);
         setDisable(false);
       });
-
-      axios
-      .put('http://localhost:4000/schedules')
   }
 
   return (

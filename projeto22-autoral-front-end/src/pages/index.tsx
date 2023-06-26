@@ -13,7 +13,7 @@ export default function Home() {
       specialty: string;
       name: string;
       phone_number: number;
-      public_schedule: { date: string }[];
+      public_schedule: { id: number; date: string }[];
     }[]
   >([]);
 
@@ -60,7 +60,7 @@ function About(p: {
   specialty: string;
   name: string;
   phone_number: number;
-  public_schedule: { date: string }[];
+  public_schedule: { id: number; date: string }[];
 }) {
   const router: NextRouter = useRouter();
 
@@ -89,6 +89,7 @@ function About(p: {
                     query: {
                       id: p.id,
                       date: generateTimestamp(hours, minutes, seconds),
+                      scheduleId: s.id
                     },
                   })
                 }
