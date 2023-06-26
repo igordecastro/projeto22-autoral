@@ -46,9 +46,9 @@ export default function Home() {
       <div className="flex flex-col m-auto bg-white rounded shadow-md justify-around h-80vh">
         {professionals.length > 0 &&
           professionals.map((p, index) =>
-            p.name && p.specialty && p.phone_number && p.public_schedule ? (
+            (p.name && p.specialty && p.phone_number && p.public_schedule) && (
               <About key={index} {...p} />
-            ) : null
+            )
           )}
       </div>
     </main>
@@ -106,7 +106,7 @@ function About(p: {
 
 function generateTimestamp(hour: number, minute: number, second: number) {
   const date: Date = new Date();
-  date.setHours(hour, minute, second);
+  date.setHours(hour, minute, second, 0);
 
   const timestamp: string = date.toISOString();
 
