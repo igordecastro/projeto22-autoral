@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 
-export default function LoginForm() {
+export default function Patients() {
   const [email, setEmail] = useState(" ");
   const [password, setPassword] = useState(" ");
   const [disable, setDisable] = useState(false);

@@ -2,11 +2,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 
-export default function LoginForm() {
-  const [date, setDate] = useState(" ");
-  const [professional_id, setProfessional_id] = useState(" ");
-  const [disable, setDisable] = useState(false);
+export default function Appointments() {
   const router = useRouter();
+  const { id, date: dateFromQuery } = router.query;
+  const [date, setDate] = useState(dateFromQuery);
+  const [professional_id, setProfessional_id] = useState(id);
+  const [disable, setDisable] = useState(false);
 
   function makeAppointment(event: { preventDefault: () => void }) {
     event.preventDefault();
@@ -36,7 +37,8 @@ export default function LoginForm() {
         <div className="mb-4">
           <label htmlFor="date">Data e horário:</label>
           <input
-          placeholder="date"
+          placeholder="data"
+          defaultValue={dateFromQuery}  
           onChange={(e) => {
             setDate(e.target.value);
           }}
@@ -48,6 +50,7 @@ export default function LoginForm() {
           <input
           placeholder="professional_id"
           type="professional_id"
+          defaultValue={id}
           onChange={(e) => {
             setProfessional_id(e.target.value);
           }}
